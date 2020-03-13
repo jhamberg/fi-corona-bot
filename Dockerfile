@@ -4,5 +4,5 @@ WORKDIR /usr/src/server
 COPY package*.json ./
 
 #RUN npm install
-RUN cd $(npm root -g)/npm && npm install
+RUN npm install
 CMD ["npm", "start"]
