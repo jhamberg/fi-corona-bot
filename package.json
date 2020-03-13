@@ -1,14 +1,14 @@
 {
   "name": "tg-corona",
   "version": "1.0.0",
-  "description": "",
+  "description": "Telegram bot for tracking COVID-19 in Finland",
   "main": "dist/index.js",
   "scripts": {
     "start": "tsc && node dist/index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "watch": "nodemon src/index.ts"
   },
-  "author": "",
+  "author": "Jonatan Hamberg",
   "license": "UNLICENSED",
   "dependencies": {
     "@types/node": "^13.9.0",
