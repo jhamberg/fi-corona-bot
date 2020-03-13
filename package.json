@@ -1,0 +1,31 @@
+{
+  "name": "tg-corona",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "start": "tsc && node dist/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch": "nodemon src/index.ts"
+  },
+  "author": "",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "@types/node": "^13.9.0",
+    "axios": "^0.19.2",
+    "dotenv": "^8.2.0",
+    "immutable": "^4.0.0-rc.12",
+    "moment": "^2.24.0",
+    "node-telegram-bot-api": "^0.40.0",
+    "pino": "^5.17.0",
+    "pino-pretty": "^3.6.1"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^2.23.0",
+    "@typescript-eslint/parser": "^2.23.0",
+    "eslint": "^6.8.0",
+    "nodemon": "^2.0.2",
+    "ts-node": "^8.6.2",
+    "typescript": "^3.8.3"
+  }
+}
