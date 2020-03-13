@@ -21,7 +21,7 @@ const api = "https://w3qa5ydb4l.execute-api.eu-west-1.amazonaws.com/prod/finnish
 const prefix = "/";
 
 const commands = Map()
-    .set("today", "show infections today")
+    .set("today", "show cases today")
     .set("status", "show overall status")
     .set("report", "setup automatic reports")
     .set("help", "display this text")
@@ -189,7 +189,7 @@ function overall(chat): void {
     logger.info(`[${chat}] checking overall status`);
     send(chat,
         `*Status:*\n` +
-        `🦠 *${state.total}* active infections\n` +
+        `🦠 *${state.total}* active cases\n` +
         `💉 *${state.recovered}* recoveries\n\n` +
         `*Healthcare Districts*:\n` +
         `${state.districtsTotal}`
@@ -199,7 +199,7 @@ function overall(chat): void {
 function today(chat): void {
     logger.info(`[${chat}] checking today's status`);
     if (state.today === 0) {
-        return send(chat,  "🦠 No infections today!");
+        return send(chat,  "🦠 No cases today!");
     }
 
     send(chat,
