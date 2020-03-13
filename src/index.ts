@@ -16,7 +16,7 @@ logger.info(`Started up with ${subscriptions} subscriptions`);
 dotenv.config();
 
 const bot = new TelegramBot(process.env.TELEGRAM_API_TOKEN, { polling: true });
-const interval = Number(process.env.UPDATE_INTERVAL || 5000); //5 * 60 * 1000 /* 5 minutes */);
+const interval = Number(process.env.UPDATE_INTERVAL || 5 * 60 * 1000 /* 5 minutes */);
 const api = "https://w3qa5ydb4l.execute-api.eu-west-1.amazonaws.com/prod/finnishCoronaData";
 const prefix = "/";
 
