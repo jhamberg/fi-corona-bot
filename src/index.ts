@@ -7,6 +7,7 @@ import { Bot } from "./types";
 import TelegramBot from "./components/TelegramBot";
 import Commands from "./components/Commands";
 import Updater from "./components/Updater";
+import DiscordBot from "./components/DiscordBot";
 
 async function init(): Promise<void> {
     dotenv.config();
@@ -19,6 +20,12 @@ async function init(): Promise<void> {
     if (telegramToken) {
         const telegramBot = new TelegramBot(telegramToken, commands);
         bots.set(telegramBot.id, telegramBot);
+    }
+
+    const discordToken = process.env.DISCORD_API_TOKEN;
+    if (discordToken) {
+        const discordBot = await DiscordBot.create(discordToken, commands);
+        bots.set(discordBot.id, discordBot);
     }
 
     const updater = await Updater.create(logger, 5 * 60 * 1000, bots);
