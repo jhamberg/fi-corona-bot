@@ -1,37 +1,14 @@
 import axios, { AxiosResponse } from "axios";
-import { List } from "immutable";
+import { Map, List } from "immutable";
 import { Logger } from "pino";
-import { pluralize } from "../helpers";
-import { Bot } from "../types";
+import { pluralize, parseCase } from "../helpers";
+import { Bot, RawCase, Case } from "../types";
 import state, { Filter } from "../state";
 
-interface Case {
-    infectionSource: "unknown" | number;
-    infectionSourceCountry: string;
-}
-
-interface RecoveryCase extends Case {
-    id: number;
-    date: string;
-    healthCareDistrict: string;
-}
-
-interface RawInfectionCase extends Case {
-    id: string;
-    date: string;
-    healthCareDistrict: string;
-}
-
-interface InfectionCase extends Case {
-    id: number;
-    date: number;
-    healthCareDistrict: string;
-}
-
 interface ApiResponse {
-    confirmed: Array<RawInfectionCase>;
-    recovered: Array<RecoveryCase>;
-    deaths: Array<Case>;
+    confirmed: Array<RawCase>;
+    recovered: Array<RawCase>;
+    // deaths: Array<Case>;
 }
 
 class Updater {
