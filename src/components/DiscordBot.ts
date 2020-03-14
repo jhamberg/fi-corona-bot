@@ -2,6 +2,7 @@
 import Discord from "discord.js";
 import { Bot, Message } from "../types";
 import Commands from "./Commands";
+import { Logger } from "pino";
 
 class DiscordBot implements Bot {
     #bot: Discord.Client;
@@ -37,9 +38,10 @@ class DiscordBot implements Bot {
         return promise;
     }
 
-    static async create(token: string, commands: Commands): Promise<Bot> {
+    static async create(token: string, commands: Commands, logger?: Logger): Promise<Bot> {
         const instance = new DiscordBot(token, commands);
         await instance.login();
+        logger?.info("Discord bot online");
         return instance;
     }
 
