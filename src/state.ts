@@ -1,7 +1,6 @@
 import fs from "fs";
 import { Map } from "immutable";
 
-export type Chat = number;
 export type Filter = {
     every: number;
     last: number;
@@ -22,25 +21,23 @@ interface CommonState {
 }
 
 interface State extends CommonState {
-    subscriptions: Map<Chat, Filter>;
+    subscriptions: Map<string, Filter>;
     persist: () => Promise<void>;
 }
 
-interface PersistedState extends CommonState {
-    subscriptions: Array<[Chat, Filter]>;
+interface PrimitiveState extends CommonState {
+    subscriptions: { [key: string]: Filter };
 }
 
-function stateToPrimitive(state: State): PersistedState {
+
+function stateToPrimitive(state: State): PrimitiveState {
     return {
         ...state,
-        subscriptions: state.subscriptions
-            .mapEntries((value, key) => [key, value])
-            .valueSeq()
-            .toArray()
+        subscriptions: state.subscriptions.toObject()
     };
 };
 
-function primitiveToState(primitive: PersistedState): State {
+function primitiveToState(primitive: PrimitiveState): State {
     return {
         ...primitive,
         subscriptions: Map(primitive.subscriptions),
@@ -50,9 +47,9 @@ function primitiveToState(primitive: PersistedState): State {
 
 function loadState(): State {
     try {
-        const defaultState: PersistedState = {
+        const defaultState: PrimitiveState = {
             last: null,
-            subscriptions: [],
+            subscriptions: {},
             total: 0,
             recovered: 0,
             today: 0,
@@ -61,7 +58,7 @@ function loadState(): State {
             districtsToday: "",
             districtsTotal: ""
         };
-        const raw: PersistedState = fs.existsSync(filepath)
+        const raw: PrimitiveState = fs.existsSync(filepath)
             ? JSON.parse(fs.readFileSync(filepath, "utf-8"))
             : defaultState;
         return primitiveToState(raw);
@@ -73,7 +70,7 @@ function loadState(): State {
 
 async function persist(): Promise<void> {
     try {
-        const item: PersistedState = stateToPrimitive(state);
+        const item: PrimitiveState = stateToPrimitive(state);
         await fs.promises.writeFile(filepath, JSON.stringify(item, null, 2));
     } catch (error) {
         console.error("Error while persisting state", error);
