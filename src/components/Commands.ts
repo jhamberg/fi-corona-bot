@@ -21,15 +21,15 @@ class Commands implements Commands {
         this.logger = logger;
         this.commands = Map<string, Command>()
             .set("today", { description: "show cases today", run: this.today.bind(this) })
-            .set("status", { description: "show overall status", run: this.status.bind(this) })
-            .set("report", { description: "setup automatic reports", run: this.report.bind(this) })
-            .set("help", { description: "display this text", run: this.help.bind(this) })
-            .set("about", { description: "show about", run: this.about.bind(this) });
+            .set("status", { description: "show a summary", run: this.status.bind(this) })
+            .set("notify", { description: "setup notifications", run: this.report.bind(this) })
+            .set("about", { description: "show about", run: this.about.bind(this) })
+            .set("help", { description: "show this text", run: this.help.bind(this) });
     }
 
     private async about(): Promise<Message> {
         return {
-            text: "*About:*\n" +
+            text: "📖 *About:*\n" +
                 "The bot uses data from the [public coronavirus dataset]" +
                 "(https://github.com/HS-Datadesk/koronavirus-avoindata) by HS.fi.\n\n" +
                 "The data provided is for indicative purposes only. The service is " +
@@ -68,11 +68,11 @@ class Commands implements Commands {
 
     private async report(chat: string, args): Promise<Message> {
         const usage =
-            "*Selection:*\n" +
-            "all - report all new cases\n" +
-            "N - report every N new cases\n" +
+            "🔔 *How often?*\n" +
+            "all - all new cases\n" +
+            "N - every N cases\n" +
             "stop - stop notifications\n\n" +
-            "Usage: /report <filter>";
+            "Usage: /report <option>";
 
         const option = args?.[0];
         const isNumber = !isNaN(option);
@@ -111,7 +111,7 @@ class Commands implements Commands {
         const list = this.commands
             .map((command, name) => `/${name} - ${command.description}`)
             .join("\n");
-        return { text: `*Usage:*\n${list}` };
+        return { text: `🦠 *Usage:*\n${list}` };
     }
 
     async execute(command: string, args: Array<string>, chat: string): Promise<Message> {
