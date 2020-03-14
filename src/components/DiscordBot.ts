@@ -37,7 +37,7 @@ class DiscordBot implements Bot {
         return promise;
     }
 
-    static async create(token: string, commands: Commands): Promise<DiscordBot> {
+    static async create(token: string, commands: Commands): Promise<Bot> {
         const instance = new DiscordBot(token, commands);
         await instance.login();
         return instance;
