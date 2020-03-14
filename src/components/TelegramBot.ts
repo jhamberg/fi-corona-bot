@@ -29,6 +29,10 @@ class TelegramBot implements Bot {
         });
     }
 
+    static async create(token: string, commands: Commands): Promise<TelegramBot> {
+        return new TelegramBot(token, commands);
+    }
+
     send(id: number, message: Message): void {
         /* eslint-disable @typescript-eslint/camelcase */
         this.#bot.sendMessage(id, message.text, {

@@ -3,7 +3,6 @@ process.env["NTBA_FIX_319"] = "1";
 
 import dotenv from "dotenv";
 import pino from "pino";
-import { Bot } from "./types";
 import TelegramBot from "./components/TelegramBot";
 import Commands from "./components/Commands";
 import Updater from "./components/Updater";
@@ -13,22 +12,21 @@ async function init(): Promise<void> {
     dotenv.config();
 
     const logger = pino({ prettyPrint: true });
-    const bots: Map<string, Bot> = new Map();
     const commands = new Commands(logger);
 
     const telegramToken = process.env.TELEGRAM_API_TOKEN;
-    if (telegramToken) {
-        const telegramBot = new TelegramBot(telegramToken, commands);
-        bots.set(telegramBot.id, telegramBot);
-    }
-
     const discordToken = process.env.DISCORD_API_TOKEN;
-    if (discordToken) {
-        const discordBot = await DiscordBot.create(discordToken, commands);
-        bots.set(discordBot.id, discordBot);
-    }
 
-    const updater = await Updater.create(logger, 5 * 60 * 1000, bots);
+    const bots = await Promise.all([
+        telegramToken ? TelegramBot.create(telegramToken, commands) : null,
+        discordToken  ? DiscordBot.create(discordToken, commands) : null
+    ]);
+
+    const botMap = bots
+        .filter(x => x)
+        .reduce((map, bot) => map.set(bot.id, bot), new Map());
+
+    const updater = await Updater.create(logger, 5 * 60 * 1000, botMap);
     updater.start();
 }
 
