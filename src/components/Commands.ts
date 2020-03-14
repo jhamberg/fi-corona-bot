@@ -94,12 +94,12 @@ class Commands implements Commands {
 
             this.logger.info(`[${chat}] subscribed ${howOften} new cases`);
             state.persist();
-            return { text: `✔️ Ok! I will report *${howOften}* new cases.` };
+            return { text: `✅ Ok! I will report *${howOften}* new cases.` };
         }
 
         if (option === "stop") {
             state.subscriptions = state.subscriptions.remove(chat);
-            this.logger.info(`[${chat}] stopped all notrifications`);
+            this.logger.info(`[${chat}] stopped all notifications`);
             state.persist();
             return { text: `🚫 Stopped all notifications.` };
         }
