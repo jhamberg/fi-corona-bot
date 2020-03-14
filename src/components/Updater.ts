@@ -55,7 +55,7 @@ class Updater {
     }
 
     start(): void {
-        this.timer = setInterval(this.updateState, this.interval);
+        this.timer = setInterval(this.updateState.bind(this), this.interval);
     }
 
     stop(): void {
