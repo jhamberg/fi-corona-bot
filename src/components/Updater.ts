@@ -35,17 +35,17 @@ interface ApiResponse {
 }
 
 class Updater {
-    #logger: Logger;
-    #api: string;
-    #interval: number;
-    #timer: NodeJS.Timeout;
-    #bots: Map<string, Bot>;
+    logger: Logger;
+    api: string;
+    interval: number;
+    timer: NodeJS.Timeout;
+    bots: Map<string, Bot>;
 
     private constructor(logger, interval, bots) {
-        this.#api = "https://w3qa5ydb4l.execute-api.eu-west-1.amazonaws.com/prod/finnishCoronaData";
-        this.#logger = logger;
-        this.#interval = interval;
-        this.#bots = bots;
+        this.api = "https://w3qa5ydb4l.execute-api.eu-west-1.amazonaws.com/prod/finnishCoronaData";
+        this.logger = logger;
+        this.interval = interval;
+        this.bots = bots;
     }
 
     static async create(logger, interval, bots): Promise<Updater> {
@@ -55,19 +55,19 @@ class Updater {
     }
 
     start(): void {
-        this.#timer = setInterval(this.updateState, this.#interval);
+        this.timer = setInterval(this.updateState, this.interval);
     }
 
     stop(): void {
-        clearInterval(this.#timer);
+        clearInterval(this.timer);
     }
 
     private async updateState(): Promise<void> {
-        const response: AxiosResponse<ApiResponse> = await axios.get(this.#api);
+        const response: AxiosResponse<ApiResponse> = await axios.get(this.api);
         const confirmed = response?.data?.confirmed;
         const recovered = response?.data?.recovered;
         if (!confirmed || !recovered) {
-            this.#logger.error("API is offline or returning incomplete data!");
+            this.logger.error("API is offline or returning incomplete data!");
             return;
         }
 
@@ -136,7 +136,7 @@ class Updater {
         const diff = state.last - filter.last;
         if (diff >= filter.every) {
             const [service, id] = chat.split("|");
-            const bot = this.#bots.get(service);
+            const bot = this.bots.get(service);
             bot.send(id, { text: `🦠 *${diff}* new ${pluralize("case", diff)}!` });
 
             filter.last = state.last;
