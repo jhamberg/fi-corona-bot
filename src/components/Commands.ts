@@ -42,27 +42,27 @@ class Commands implements Commands {
     private async status(chat: string): Promise<Message> {
         this.logger.info(`[${chat}] checking overall status`);
         return {
-            text: `*Status:*\n` +
-                `🦠 *${state.total}* active cases\n` +
-                `💉 *${state.recovered}* recoveries\n\n` +
+            text: `🦠 *${state.total}* reported cases in total\n` +
+                `💉 *${state.totalRecovered}* reported recoveries\n\n` +
                 `*Healthcare Districts*:\n` +
                 `${state.districtsTotal}`
         };
     }
 
-    async today(chat: string): Promise<Message> {
+    private async today(chat: string): Promise<Message> {
         this.logger.info(`[${chat}] checking today's status`);
         if (state.today === 0) {
             return { text: "🦠 No cases today!" };
         }
 
         return {
-            text: `*Status:*\n` +
-                `🦠 *${state.today}* new ${pluralize("case", state.today)} today!\n\n` +
+            text: `🦠 *${state.today}* reported ${pluralize("case", state.today)} today\n` +
+                `💉 *${state.recoveries}* reported ` +
+                `recov${state.recoveries === 1 ? "ery" : "eries"}\n\n` +
                 `*Healthcare Districts*:\n` +
                 `${state.districtsToday}\n\n` +
-                `Yesterday there were ${state.yesterday} ${pluralize("case", state.today)}.\n` +
-                `The growth factor was ${(state.yesterday / state.dayBefore).toFixed(2)}.`
+                `Yesterday there were *${state.yesterday}* ${pluralize("case", state.today)}.\n` +
+                `The growth factor was *${(state.yesterday / state.dayBefore).toFixed(2)}*.`
         };
     }
 
@@ -109,7 +109,7 @@ class Commands implements Commands {
 
     private async help(): Promise<Message> {
         const list = this.commands
-            .map((command, name) =>  `/${name} - ${command.description}`)
+            .map((command, name) => `/${name} - ${command.description}`)
             .join("\n");
         return { text: `*Usage:*\n${list}` };
     }
