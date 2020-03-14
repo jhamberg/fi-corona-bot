@@ -18,8 +18,8 @@ async function init(): Promise<void> {
     const discordToken = process.env.DISCORD_API_TOKEN;
 
     const bots = await Promise.all([
-        telegramToken ? TelegramBot.create(telegramToken, commands) : null,
-        discordToken  ? DiscordBot.create(discordToken, commands) : null
+        telegramToken ? TelegramBot.create(telegramToken, commands, logger) : null,
+        discordToken  ? DiscordBot.create(discordToken, commands, logger) : null
     ]);
 
     const botMap = bots
