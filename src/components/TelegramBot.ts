@@ -2,6 +2,7 @@
 import TBot from "node-telegram-bot-api";
 import { Bot, Message } from "../types";
 import Commands from "./Commands";
+import { Logger } from "pino";
 
 class TelegramBot implements Bot {
     #bot: TBot;
@@ -20,7 +21,6 @@ class TelegramBot implements Bot {
 
             const args = msg.text.slice(prefix.length).trim().split(/ +/g);
             const command = args.shift().toLowerCase();
-            // const chat = { service: this.id, id: id };
             const chat = this.id + "|" + msg.chat.id;
             const response = await commands.execute(command, args, chat);
             if (response?.text) {
@@ -29,8 +29,10 @@ class TelegramBot implements Bot {
         });
     }
 
-    static async create(token: string, commands: Commands): Promise<TelegramBot> {
-        return new TelegramBot(token, commands);
+    static async create(token: string, commands: Commands, logger?: Logger): Promise<Bot> {
+        const bot = new TelegramBot(token, commands);
+        logger?.info("Telegram bot online");
+        return bot;
     }
 
     send(id: number, message: Message): void {
