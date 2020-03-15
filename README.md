@@ -4,11 +4,11 @@ This project allows you to check reported COVID-19 cases in Finland and subscrib
 
 Here are the supported commands: 
 ```
-/today - show cases today
-/status - show a summary
-/notify - setup notifications
-/about - show about
-/help - show this text
+today - show cases today
+status - show a summary
+notify - setup notifications
+about - show about
+help - show this text
 ```
 
 To run this project, you need a Telegram or a Discord API token.
