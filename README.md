@@ -31,12 +31,12 @@ npm start
 ## Running with Docker
 ```bash
 # Build the container image
-docker build -t tg-corona .
+docker build -t fi-corona-bot .
 # Run with the your API tokens
 docker run -d \
 -e TELEGRAM_API_TOKEN=secret \
 -e DISCORD_API_TOKEN=secret \
-tg-corona
+fi-corona-bot
 ```
 ---
 The bot uses data from the 
