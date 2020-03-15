@@ -1,4 +1,4 @@
-# COVID-19 Finland - Telegram & Discord bot
+# COVID-19 Finland: Discord & Telegram bot
 
 
 
