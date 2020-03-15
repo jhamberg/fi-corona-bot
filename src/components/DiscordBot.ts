@@ -10,7 +10,7 @@ class DiscordBot implements Bot {
     id: string;
 
     private constructor(token: string, commands: Commands) {
-        const prefix = "/";
+        const prefix = "!";
         this.bot = new Discord.Client();
         this.token = token;
         this.id = "discord";

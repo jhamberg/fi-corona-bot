@@ -107,16 +107,19 @@ class Commands implements Commands {
         return { text: usage };
     }
 
-    private async help(): Promise<Message> {
+    private async help(chat: string): Promise<Message> {
+        const [service] = chat.split("|");
+        const prefix = service === "telegram" ? "/" : "!";
+
         const list = this.commands
-            .map((command, name) => `/${name} - ${command.description}`)
+            .map((command, name) => `${prefix}${name} - ${command.description}`)
             .join("\n");
         return { text: `🦠 *Usage:*\n${list}` };
     }
 
     async execute(command: string, args: Array<string>, chat: string): Promise<Message> {
         if (!this.commands.has(command)) {
-            return this.help();
+            return this.help(chat);
         }
 
         return this.commands.get(command).run(chat, args);
