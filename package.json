@@ -1,5 +1,5 @@
 {
-  "name": "tg-corona",
+  "name": "fi-corona-bot",
   "version": "1.0.0",
   "description": "Telegram bot for tracking COVID-19 in Finland",
   "main": "dist/index.js",
