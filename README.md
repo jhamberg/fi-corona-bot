@@ -1,5 +1,8 @@
 # COVID-19 Finland - Telegram & Discord bot
 
+[![Add on Discord](https://i.imgur.com/brcmkNV.png)](https://discordapp.com/oauth2/authorize?&client_id=688213304153341952&scope=bot&permissions=0)
+[![Add on Telegram](https://i.imgur.com/iLvdJig.png)](https://t.me/PandemiaBot)
+
 This project allows you to check reported COVID-19 cases in Finland and subscribe to notifications about every N (or all) new cases. Currently supported platforms are [Telegram](https://telegram.org/) and [Discord](https://discordapp.com/) which can be run separately or in parallel depending on which API tokens are provided to the program.   
 
 Here are the supported commands: 
@@ -11,7 +14,7 @@ about - show about
 help - show this text
 ```
 
-To run this project, you need a Telegram or a Discord API token.
+To run this project yourself, you need a Telegram or a Discord API token.
 
 Telegram: https://core.telegram.org/bots  
 Discord: https://discordapp.com/developers/docs/intro
