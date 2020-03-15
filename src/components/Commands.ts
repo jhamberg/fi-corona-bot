@@ -75,7 +75,7 @@ class Commands implements Commands {
             "all - all new cases\n" +
             "n - every n cases\n" +
             "stop - stop notifications\n\n" +
-            "Usage: /report <option>";
+            "Usage: /notify <option>";
 
         const option = args?.[0];
         const isNumber = !isNaN(option);
