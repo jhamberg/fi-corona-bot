@@ -15,10 +15,12 @@ interface CommonState {
 }
 
 interface State extends CommonState {
-    total: number;
-    totalRecovered: number;
     today: number;
+    total: number;
     recoveries: number;
+    totalRecovered: number;
+    deaths: number;
+    totalDeaths: number;
     yesterday: number;
     dayBefore: number;
     districtsToday: string;
@@ -42,10 +44,12 @@ function stateToPrimitive(state: State): PrimitiveState {
 function primitiveToState(primitive: PrimitiveState): State {
     return {
         last: primitive.last,
-        total: 0,
-        totalRecovered: 0,
         today: 0,
+        total: 0,
         recoveries: 0,
+        totalRecovered: 0,
+        deaths: 0,
+        totalDeaths: 0,
         yesterday: 0,
         dayBefore: 0,
         districtsToday: "",

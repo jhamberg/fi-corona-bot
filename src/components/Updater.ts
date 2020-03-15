@@ -8,7 +8,7 @@ import state, { Filter } from "../state";
 interface ApiResponse {
     confirmed: Array<RawCase>;
     recovered: Array<RawCase>;
-    // deaths: Array<Case>;
+    deaths: Array<RawCase>;
 }
 
 class Updater {
@@ -44,6 +44,8 @@ class Updater {
         const response: AxiosResponse<ApiResponse> = await axios.get(this.api);
         const confirmed = response?.data?.confirmed;
         const recovered = response?.data?.recovered;
+        const deceased = response?.data?.deaths;
+
         if (!confirmed || !recovered) {
             this.logger.error("API is offline or returning incomplete data!");
             return;
@@ -52,6 +54,7 @@ class Updater {
         // Convert cases to a more convenient format
         const infections: List<Case> = List(confirmed).map(parseCase);
         const recoveries: List<Case> = List(recovered).map(parseCase);
+        const deaths: List<Case> = List(deceased).map(parseCase);
 
         const previousId = state.last;
         const latest = infections.maxBy(inf => inf.id);
@@ -73,14 +76,18 @@ class Updater {
             .filter(inf => inf.date > dayBefore.getTime() && inf.date < yesterday.getTime());
         const recoveriesToday = recoveries
             .filter(recovery => recovery.date >= today.getTime());
+        const deathsToday = deaths
+            .filter(death => death.date >= today.getTime());
 
         state.infections = infections;
         state.today = casesToday.count();
         state.recoveries = recoveriesToday.count();
+        state.deaths = deathsToday.count();
         state.yesterday = casesYesterday.count();
         state.dayBefore = casesDayBefore.count();
         state.total = confirmed.length - recovered.length;
         state.totalRecovered = recovered.length;
+        state.totalDeaths = deceased.length;
 
         const districtsToday = this.districts(casesToday)
             .sort()
