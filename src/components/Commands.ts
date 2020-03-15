@@ -31,7 +31,9 @@ class Commands implements Commands {
         return {
             text: "*About:*\n" +
                 "The bot uses data from the [public coronavirus dataset]" +
-                "(https://github.com/HS-Datadesk/koronavirus-avoindata) by HS.fi.\n\n" +
+                "(https://github.com/HS-Datadesk/koronavirus-avoindata) by HS.fi.\n" +
+                "You can view the source code [here]" +
+                "(https://github.com/jhamberg/fi-corona-bot).\n\n" +
                 "The data provided is for indicative purposes only. The service is " +
                 "provided \"as-is\", \"with all faults\" and \"as available\". There are " +
                 "no guarantees for the accuracy or timeliness of information available " +
