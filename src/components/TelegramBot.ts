@@ -5,15 +5,15 @@ import Commands from "./Commands";
 import { Logger } from "pino";
 
 class TelegramBot implements Bot {
-    #bot: TBot;
+    bot: TBot;
     id: string;
 
     constructor(token: string, commands: Commands ) {
         const prefix = "/";
-        this.#bot = new TBot(token, { polling: true });
+        this.bot = new TBot(token, { polling: true });
         this.id = "telegram";
 
-        this.#bot.on("message", async (msg) => {
+        this.bot.on("message", async (msg) => {
             const prefixedWithSlash = msg?.text?.startsWith(prefix);
             if (!prefixedWithSlash) {
                 return;
@@ -37,7 +37,7 @@ class TelegramBot implements Bot {
 
     send(id: number, message: Message): void {
         /* eslint-disable @typescript-eslint/camelcase */
-        this.#bot.sendMessage(id, message.text, {
+        this.bot.sendMessage(id, message.text, {
             parse_mode: "Markdown",
             disable_web_page_preview: true
         });
