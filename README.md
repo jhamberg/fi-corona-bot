@@ -1,4 +1,4 @@
-# COVID-19 Finland - Telegram & Discord bot
+# COVID-19 Finland: Discord & Telegram bot
 
 [![Add on Discord](https://i.imgur.com/brcmkNV.png)](https://discordapp.com/oauth2/authorize?&client_id=688213304153341952&scope=bot&permissions=0)
 [![Add on Telegram](https://i.imgur.com/iLvdJig.png)](https://t.me/PandemiaBot)
