@@ -14,12 +14,18 @@ about - show about
 help - show this text
 ```
 
+Here is an example:
+
+![Example image of the bot in use](https://i.imgur.com/iw4aGuI.png)
+
+
+## Running
 To run this project yourself, you need a Telegram or a Discord API token.
 
 Telegram: https://core.telegram.org/bots  
 Discord: https://discordapp.com/developers/docs/intro
 
-## Running without Docker
+### Running without Docker
 
 ```bash
 # Install dependencies
@@ -31,7 +37,7 @@ echo "DISCORD_API_TOKEN=secret" > .env
 npm start
 ```
 
-## Running with Docker
+### Running with Docker
 ```bash
 # Build the container image
 docker build -t fi-corona-bot .
