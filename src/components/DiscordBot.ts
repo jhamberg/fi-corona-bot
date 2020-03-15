@@ -5,17 +5,17 @@ import Commands from "./Commands";
 import { Logger } from "pino";
 
 class DiscordBot implements Bot {
-    #bot: Discord.Client;
-    #token: string;
+    bot: Discord.Client;
+    token: string;
     id: string;
 
     private constructor(token: string, commands: Commands) {
         const prefix = "/";
-        this.#bot = new Discord.Client();
-        this.#token = token;
+        this.bot = new Discord.Client();
+        this.token = token;
         this.id = "discord";
 
-        this.#bot.on("message", async (msg) => {
+        this.bot.on("message", async (msg) => {
             const prefixedWithSlash = msg?.content?.startsWith(prefix);
             if (!prefixedWithSlash) {
                 return;
@@ -33,8 +33,8 @@ class DiscordBot implements Bot {
     }
 
     async login(): Promise<void> {
-        const promise: Promise<void> = new Promise(resolve => this.#bot.on("ready", resolve));
-        this.#bot.login(this.#token);
+        const promise: Promise<void> = new Promise(resolve => this.bot.on("ready", resolve));
+        this.bot.login(this.token);
         return promise;
     }
 
@@ -46,7 +46,7 @@ class DiscordBot implements Bot {
     }
 
     async send(id: string, message: Message): Promise<void> {
-        const channel = await this.#bot.channels.cache.get(id) as Discord.TextChannel;
+        const channel = await this.bot.channels.cache.get(id) as Discord.TextChannel;
         channel?.send(message.text.replace(/\*/g, "**"));
     }
 }
