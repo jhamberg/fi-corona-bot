@@ -94,7 +94,7 @@ class Commands implements Commands {
 
             this.logger.info(`[${chat}] subscribed ${howOften} new cases`);
             state.persist();
-            return { text: `✅ Ok! I will report *${howOften}* new cases.` };
+            return { text: `✅ Reporting *${howOften}* new cases.` };
         }
 
         if (option === "stop") {
