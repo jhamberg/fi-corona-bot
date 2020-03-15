@@ -42,8 +42,9 @@ class Commands implements Commands {
     private async status(chat: string): Promise<Message> {
         this.logger.info(`[${chat}] checking overall status`);
         return {
-            text: `🦠 *${state.total}* reported cases in total\n` +
-                `💉 *${state.totalRecovered}* reported recoveries\n\n` +
+            text: `🦠 *${state.total}* reported cases\n` +
+                `💉 *${state.totalRecovered}* recoveries\n` +
+                `☠️ *${state.totalDeaths}* ${pluralize("death", state.totalDeaths)}\n\n` +
                 `*Healthcare Districts*:\n` +
                 `${state.districtsTotal}`
         };
@@ -51,14 +52,16 @@ class Commands implements Commands {
 
     private async today(chat: string): Promise<Message> {
         this.logger.info(`[${chat}] checking today's status`);
+
+        // TODO: What if there are recoveries or deaths?
         if (state.today === 0) {
-            return { text: "🦠 No cases today!" };
+            return { text: "🦠 No cases reported yet!" };
         }
 
         return {
-            text: `🦠 *${state.today}* reported ${pluralize("case", state.today)} today\n` +
-                `💉 *${state.recoveries}* reported ` +
-                `recov${state.recoveries === 1 ? "ery" : "eries"}\n\n` +
+            text: `🦠 *${state.today}* ${pluralize("case", state.today)} today\n` +
+                `💉 *${state.recoveries}* recov${state.recoveries === 1 ? "ery" : "eries"}\n` +
+                `☠️ *${state.deaths}* ${pluralize("death", state.deaths)}\n\n` +
                 `*Healthcare Districts*:\n` +
                 `${state.districtsToday}\n\n` +
                 `Yesterday there were *${state.yesterday}* ${pluralize("case", state.today)}.\n` +
