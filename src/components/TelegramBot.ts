@@ -39,7 +39,7 @@ class TelegramBot implements Bot {
         /* eslint-disable @typescript-eslint/camelcase */
         this.bot.sendMessage(id, message.text, {
             parse_mode: "Markdown",
-            disable_web_page_preview: true
+            disable_web_page_preview: false
         });
     }
 }
