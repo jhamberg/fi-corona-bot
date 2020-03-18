@@ -7,5 +7,6 @@ export const pluralize = (singular: string, count): string => (
 export const parseCase = (item: RawCase): Case => ({
     ...item,
     id: Number(item.id),
-    date: Date.parse(item.date)
+    date: Date.parse(item.date),
+    healthCareDistrict: item.healthCareDistrict ?? "Unknown"
 });
