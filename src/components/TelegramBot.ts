@@ -7,22 +7,37 @@ import { Logger } from "pino";
 class TelegramBot implements Bot {
     bot: TBot;
     id: string;
+    name: string;
+    prefix: string;
+    commands: Commands;
 
     constructor(token: string, commands: Commands ) {
-        const prefix = "/";
         this.bot = new TBot(token, { polling: true });
         this.id = "telegram";
+        this.prefix = "/";
+        this.commands = commands;
+    }
+
+    async setup(): Promise<void> {
+        const user = await this.bot.getMe();
+        const username = user.username.toLowerCase();
 
         this.bot.on("message", async (msg) => {
-            const prefixedWithSlash = msg?.text?.startsWith(prefix);
+            const prefixedWithSlash = msg?.text?.startsWith(this.prefix);
             if (!prefixedWithSlash) {
                 return;
             }
 
-            const args = msg.text.slice(prefix.length).trim().split(/ +/g);
-            const command = args.shift().toLowerCase();
+            const args = msg.text.slice(this.prefix.length).trim().split(/ +/g);
+            const command: string = args.shift().toLowerCase().replace(`@${username}`, "");
+
+            // Exit early if some other bot was mentioned
+            if (command.includes("@")) {
+                return;
+            }
+
             const chat = this.id + "|" + msg.chat.id;
-            const response = await commands.execute(command, args, chat);
+            const response = await this.commands.execute(command, args, chat);
             if (response?.text) {
                 this.send(msg.chat.id, response);
             }
@@ -31,6 +46,7 @@ class TelegramBot implements Bot {
 
     static async create(token: string, commands: Commands, logger?: Logger): Promise<Bot> {
         const bot = new TelegramBot(token, commands);
+        await bot.setup();
         logger?.info("Telegram bot online");
         return bot;
     }
