@@ -8,5 +8,5 @@ export const parseCase = (item: RawCase): Case => ({
     ...item,
     id: Number(item.id),
     date: Date.parse(item.date),
-    healthCareDistrict: item.healthCareDistrict || "Unknown"
+    healthCareDistrict: item.healthCareDistrict || "Unspecified"
 });
