@@ -63,10 +63,8 @@ class Updater {
         today.setHours(0, 0, 0, 0);
         const yesterday = new Date(today);
         const dayBefore = new Date(today);
-        const fourBefore = new Date(today);
         yesterday.setDate(today.getDate() - 1);
         dayBefore.setDate(today.getDate() - 2);
-        fourBefore.setDate(today.getDate() -4);
 
         const casesToday = infections
             .filter(inf => inf.date >= today.getTime());
