@@ -149,8 +149,8 @@ class Updater {
                 const text = `🦠 *${diff}* new cases!\n\n` +
                     "*Healthcare Districts:*\n" +
                     `${districts.map((diff, dist) => `${dist}: +${diff}`).join("\n")}\n\n` +
-                    `Today *+${state.today}* new ${pluralize("case", state.today)}.\n` +
-                    `Total *${state.total}* ${pluralize("case", state.total)}.`;
+                    `Total *${state.total}* ${pluralize("case", state.total)}.\n` +
+                    `Today *+${state.today}* new ${pluralize("case", state.today)}.`;
                 bot.send(id, { text });
             }
             filter.last = latestId;
