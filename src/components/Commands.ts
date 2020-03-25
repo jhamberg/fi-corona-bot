@@ -20,11 +20,11 @@ class Commands implements Commands {
     constructor(logger) {
         this.logger = logger;
         this.commands = Map<string, Command>()
-            .set("today", { description: "show cases today", run: this.today.bind(this) })
-            .set("status", { description: "show a summary", run: this.status.bind(this) })
-            .set("notify", { description: "setup notifications", run: this.report.bind(this) })
-            .set("about", { description: "show about", run: this.about.bind(this) })
-            .set("help", { description: "show this text", run: this.help.bind(this) });
+            .set("today", { description: "Show cases today", run: this.today.bind(this) })
+            .set("status", { description: "Show a summary", run: this.status.bind(this) })
+            .set("notify", { description: "Setup notifications", run: this.report.bind(this) })
+            .set("about", { description: "Show about", run: this.about.bind(this) })
+            .set("help", { description: "Show this text", run: this.help.bind(this) });
     }
 
     private async about(): Promise<Message> {
@@ -73,10 +73,10 @@ class Commands implements Commands {
     private async report(chat: string, args): Promise<Message> {
         const usage =
             "*Select an option:*\n" +
-            "all - all new cases\n" +
-            "n - every n cases\n" +
-            "stop - stop notifications\n\n" +
-            "Usage: /notify <option>";
+            "all - Report all cases\n" +
+            "n - Report every n cases\n" +
+            "stop - Stop notifications\n\n" +
+            "Usage: {!/}notify <option>";
 
         const option = args?.[0];
         const isNumber = !isNaN(option);
