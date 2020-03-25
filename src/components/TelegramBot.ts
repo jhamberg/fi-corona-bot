@@ -51,9 +51,13 @@ class TelegramBot implements Bot {
         return bot;
     }
 
+    format(message: Message): string {
+        return message.text.replace("{!/}", this.prefix);
+    }
+
     send(id: number, message: Message): void {
         /* eslint-disable @typescript-eslint/camelcase */
-        this.bot.sendMessage(id, message.text, {
+        this.bot.sendMessage(id, this.format(message), {
             parse_mode: "Markdown",
             disable_web_page_preview: false
         });
