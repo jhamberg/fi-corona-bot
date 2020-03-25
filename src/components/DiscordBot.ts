@@ -8,20 +8,21 @@ class DiscordBot implements Bot {
     bot: Discord.Client;
     token: string;
     id: string;
+    prefix: string;
 
     private constructor(token: string, commands: Commands) {
-        const prefix = "!";
+        this.prefix = "!";
         this.bot = new Discord.Client();
         this.token = token;
         this.id = "discord";
 
         this.bot.on("message", async (msg) => {
-            const prefixedWithSlash = msg?.content?.startsWith(prefix);
+            const prefixedWithSlash = msg?.content?.startsWith(this.prefix);
             if (!prefixedWithSlash) {
                 return;
             }
 
-            const args = msg.content.slice(prefix.length).trim().split(/ +/g);
+            const args = msg.content.slice(this.prefix.length).trim().split(/ +/g);
             const command = args.shift().toLowerCase();
             // const chat = { service: this.id, id: id };
             const chat = this.id + "|" + msg.channel.id;
@@ -45,9 +46,15 @@ class DiscordBot implements Bot {
         return instance;
     }
 
+    format(message: Message): string {
+        return message.text
+            .replace(/\*/g, "**") // Discord uses double asterisk for bold
+            .replace("{!/}", this.prefix);
+    }
+
     async send(id: string, message: Message): Promise<void> {
         const channel = await this.bot.channels.cache.get(id) as Discord.TextChannel;
-        channel?.send(message.text.replace(/\*/g, "**"));
+        channel?.send(this.format(message));
     }
 }
 
