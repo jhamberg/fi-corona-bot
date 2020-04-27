@@ -69,7 +69,7 @@ exports.findClosestMatch = (object, search) => flow(
 exports.findDate = flow(
     toArray,
     map("textContent"),
-    filter(includes("tiedot päivitetty")),
+    filter(includes("kuolemantapaukset erityisvastuualueittain")),
     map(text => text.match(/(\d{1,2}).(\d{1,2}). klo (\d{1,2}).(\d{1,2})/)),
     reject(isNull),
     map(([, day, month, hours, minutes]) => {
