@@ -1,7 +1,7 @@
 # COVID-19 Finland: Discord & Telegram bot
 
-***REMOVED***
-***REMOVED***
+[![Add on Discord](https://i.imgur.com/brcmkNV.png)](https://discordapp.com/oauth2/authorize?&client_id=688213304153341952&scope=bot&permissions=0)
+[![Add on Telegram](https://i.imgur.com/iLvdJig.png)](https://t.me/PandemiaBot)
 
 This chatbot allows you to track various COVID-19 statistics in Finland, such as the total number of confirmed cases, tests and deaths. Currently supported platforms are [Telegram](https://telegram.org/) and [Discord](https://discordapp.com/) which can be run separately or in parallel depending on which API tokens are provided to the program. The bot operates both in English and Finnish depending on the per-channel preference. For now, the choice of language is the only state persisted by the program.
 
