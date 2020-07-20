@@ -36,7 +36,7 @@
     "immutable": "^4.0.0-rc.12",
     "jsdom": "^16.2.2",
     "leven": "^3.1.0",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.19",
     "node-telegram-bot-api": "^0.40.0",
     "pino": "^6.2.0",
     "pino-pretty": "^4.0.0",
